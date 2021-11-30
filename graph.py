@@ -39,5 +39,5 @@ class NeoDatabase:
                 AND m.{prop2} = {func2}(row.{prop2}) \
                 CREATE (n) - [:{rel_name}] -> (m)"
 
-    def run_query(self, query: str, properties: Dict[str, str]) -> str:
+    def run_query(self, query: str, *args, **properties) -> str:
         return self.driver.session().run(query, **properties)

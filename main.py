@@ -166,9 +166,10 @@ if __name__ == "__main__":
         )
 
         load_query = neo.create_load_query(name, table["columns"])
-        neo.run_query(load_query, {"filename": f"file:///{name}.csv"})
+        neo.run_query(load_query, filename=f"file:///{name}.csv")
 
         index_query = neo.create_index_query(name, table["id"])
+        neo.run_query(index_query)
 
     for facts in facts_tables:
         rows = db.query_all(facts["columns"].keys(), facts["name"])
@@ -190,6 +191,6 @@ if __name__ == "__main__":
                 tables[col2]["columns"][id2],
             )
 
-            neo.run_query(rel_query, {"filename": f"file:///{facts['name']}.csv"})
+            neo.run_query(rel_query, filename=f"file:///{facts['name']}.csv")
 
     print("Migration ran succesfully!")
